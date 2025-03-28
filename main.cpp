@@ -8,23 +8,25 @@ Gabterr
 #include <iomanip>
 using namespace std;
 
-const double PI = 3.14159265359;
+const double PI = 3.14159265359; // pi constant for formulas  
 
+// prorotypes for sphere menu, volume, area
 void menu_esfera();
 inline void volumen(double);
 inline void area(double);
-
+// prototype for cylinder menu, volume, area
 void menu_cilindro();
 inline void volumen(double, double);
 inline void area(double, double);
-
-void menu_prisma();
+// prototype for rectangular prism menu, volume, area
+void menu_prisma_rect();
 inline void volumen(double, double, double);
 inline void area(double, double, double);
 
 int main(){
-    cout << "Este programa calcula el volumen y el área de la superficie de tres figuras.\n\n";
+    cout << "Este programa calcula el volumen y el área de la superficie de tres figuras.\n\n"; // purpose 
 
+    // menu to choose a shape 
     char figura;
     cout << "Escoge una de las tres figuras:\n"
     << "\ta. Esfera\n"
@@ -34,41 +36,45 @@ int main(){
     cin >> figura;
 
     switch(figura){
-        case 'a': menu_esfera();
+        case 'a': menu_esfera(); // option a: opens sphere menu
             break;
-        case 'b': menu_cilindro();
+        case 'b': menu_cilindro(); // option b: opens cylinder menu
             break;
-        case 'c': menu_prisma();
-        default: cout << "No entró una opción valida.\n";
+        case 'c': menu_prisma_rect(); // option c: opens rectangular pism menu 
+        default: cout << "No entró una opción valida.\n"; // input validation 
     }
 
     return 0;
 }
 
 void menu_esfera(){
-    char calculo; 
+    // menu to choose calculation
+    char calculos; 
     cout << "\nEscoge entre una de las opciones:\n"
     << "\ta. Volumen\n"
     << "\tb. Área de la superficie\n"
     << "Selección: ";
-    cin >> calculo;
+    cin >> calculos;
 
+    // get radius
     double radio; 
         cout << "\nEntre el radio. Debe ser un número positivo: ";
         cin >> radio;
-        if (radio < 0){
-            cout << "No entro un número positivo.\nEntre un número positivo: ";
-            cin >> radio;
-        }   
+    // input validation 
+    for (int i = 0; radio < 0; i++){  
+        cout << "No entro un número positivo.\nEntre un número positivo: ";
+        cin >> radio;
+    }   
 
-    switch (calculo){
-    case 'a': 
+    switch (calculos){
+    case 'a': // option a: calculate volume 
         volumen(radio);
         break;
-    case 'b': 
+    case 'b': // option b: calculate area 
         area(radio);
         break;
-    default: cout << "No entró una opción valida.\n";
+    default: // input validation for menu
+        cout << "No entró una opción valida.\n";
     }
 }
 void volumen(double radio) {
@@ -81,29 +87,33 @@ void area(double radio){
 }
 
 void menu_cilindro(){
-    char calc; 
+    // menu to choose calculation 
+    char calculos; 
     cout << "\nEscoge entre una de las opciones:\n"
     << "\ta. Volumen\n"
     << "\tb. Área de la superficie\n"
     << "Selección: ";
-    cin >> calc;
-
+    cin >> calculos;
+    
+    // get radius, height
     double radio, altura; 
-        cout << "\nEntre el radio y la altura. Debe ser un número positivo: ";
+        cout << "\nEntre el radio y la altura. Deben ser números positivos: ";
         cin >> radio >> altura;
-        if (radio < 0 || altura < 0){
-            cout << "No entro un número positivo.\nEntre un número positivo: ";
-            cin >> radio >> altura;
-        }   
+    // input validation 
+    for (int i = 0; radio < 0 || altura < 0; i++){
+        cout << "No entro por lo menos un número positivo.\nEntre números positivos: ";
+        cin >> radio >> altura;
+    }     
 
-    switch (calc){
-    case 'a': 
+    switch (calculos){
+    case 'a': // option a: calculates volume
         volumen(radio, altura);
         break;
-    case 'b': 
+    case 'b': // option b: calculates area
         area(radio, altura); 
-        break;
-    default: cout << "No entró una opción valida.\n";
+        break; 
+    default: // input validation for menu
+        cout << "No entró una opción valida.\n";
     }
 }
 void volumen(double radio, double altura){
@@ -115,28 +125,34 @@ void area(double radio, double altura){
     cout << "El área de la superficie del cilindro es: " << setprecision(2) << fixed << result << endl;
 }
 
-void menu_prisma(){
-    char calc; 
+void menu_prisma_rect(){
+    // menu to choose calculation 
+    char calculos; 
     cout << "\nEscoge entre una de las opciones:\n"
     << "\ta. Volumen\n"
     << "\tb. Área de la superficie\n"
     << "Selección: ";
-    cin >> calc;
+    cin >> calculos;
 
+    // get width, length, height
     double ancho, largo, altura; 
-        cout << "\nEntre el radio y la altura. Debe ser un número positivo: ";
+        cout << "\nEntre el ancho, largo y altura. Deben ser números positivos: ";
         cin >> ancho >> largo >> altura;
-        if (ancho < 0 || largo < 0 || altura < 0){
-            cout << "No entro un número positivo.\nEntre un número positivo: ";
-            cin >> ancho >> largo, altura;
-        }   
+    // input validation
+    for (int i = 0; ancho < 0 || largo < 0 || altura < 0; i++){
+        cout << "No entro por lo menos un número positivo.\nEntre números positivos: ";
+        cin >> ancho >> largo >> altura;
+    }   
 
-    switch (calc){
-    case 'a': volumen(ancho, largo, altura);
+    switch (calculos){
+    case 'a': // option a: calculate volume
+        volumen(ancho, largo, altura);
         break;
-    case 'b': area(ancho, largo, altura);
+    case 'b': // option b: calculate area
+        area(ancho, largo, altura);
         break;
-    default: cout << "No entró una opción valida.\n";
+    default: // input validation for menu
+        cout << "No entró una opción valida.\n";
     }
 }
 void volumen(double ancho, double largo, double altura) {
